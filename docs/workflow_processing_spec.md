@@ -58,6 +58,6 @@ flowchart TD
 
 ## 4. ملفات المعاينة المباشرة
 
-- **صفحة معالجة الطلبات وسير العمل:** [workflow_processing.html](file:///C:/Users/admin/.gemini/antigravity/scratch/naama_redesign/workflow_processing.html)
+- **صفحة معالجة الطلبات وسير العمل:** [index2.html](file:///C:/Users/admin/.gemini/antigravity/scratch/naama_redesign/index2.html)
 - **شاشة الدليل الرئيسية (HomePage):** [homepage_redesign.html](file:///C:/Users/admin/.gemini/antigravity/scratch/naama_redesign/homepage_redesign.html)
 - **شعار منصة نما الرسمي:** [nama-logo.svg](file:///C:/Users/admin/.gemini/antigravity/scratch/naama_redesign/nama-logo.svg)

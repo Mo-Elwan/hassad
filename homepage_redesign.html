@@ -909,31 +909,7 @@
         </div>
     </div>
 
-    <!-- Mode Comparison Banner -->
-    <div class="comparison-toggle-bar">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-weight: 700;">منصة نما 2026:</span>
-            <span>إعادة تصميم الصفحة الرئيسية (HomePage) بدقة 100% طبقاً للهوية المعتمدة لمنصة نما.</span>
-        </div>
-        <button class="toggle-btn-pill" onclick="toggleComparisonDrawer()">
-            استعراض مقارنة التحول من Axure
-        </button>
-    </div>
-
-    <!-- Main Header -->
-    <header class="site-header">
-        <div class="header-container">
-            <!-- Brand -->
-            <div class="header-brand">
-                <a href="#" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
-                    <img src="nama-logo.svg" alt="شعار منصة نما" class="logo-img" onerror="this.src='https://naama.sa/assets/images/Nama-Logo.svg'">
-                </a>
-                <div class="brand-divider"></div>
-                <div class="mewa-badge-text">
-                    <span class="mewa-title">وزارة البيئة والمياه والزراعة</span>
-                    <span class="mewa-sub">منظومة الخدمات الإلكترونية الموحدة</span>
-                </div>
-            </div>
+    
 
             <!-- Main Nav (Refined from Axure HomePage) -->
             <nav class="main-nav">
@@ -941,7 +917,8 @@
                 <a class="nav-link active" href="#">دليل الخدمات الإلكترونية</a>
                 <a class="nav-link" href="#" onclick="alert('طلباتي: 3 طلبات نشطة في القطاع الزراعي')">طلباتي (3)</a>
                 <a class="nav-link" href="#" onclick="alert('مفضلتي: لا توجد خدمات محفوظة حالياً')">مفضلتي</a>
-                <a class="nav-link" href="index.html">معالج التقديم الذكي</a>
+                <a class="nav-link" href="index.html">معالج التقديم</a>
+                <a class="nav-link" href="index2.html">بوابة معالجة الطلبات (index2)</a>
             </nav>
 
             <!-- User Dropdown (Mohamed Elwan as in Axure) -->
@@ -1055,36 +1032,7 @@
 
         <!-- Services Area -->
         <main>
-            <!-- Comparison Drawer (Toggled) -->
-            <div class="comparison-drawer" id="comparison-drawer">
-                <div class="drawer-header">
-                    <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--naama-secondary);">
-                        مقارنة التحول: شاشة HomePage القديمة في Axure vs. التصميم الجديد بهوية نما
-                    </h3>
-                    <button style="border: none; background: transparent; font-size: 1.25rem; cursor: pointer;" onclick="toggleComparisonDrawer()">✕</button>
-                </div>
-                <div class="diff-grid">
-                    <div class="diff-card axure">
-                        <strong style="color: #4B5563; font-size: 0.95rem; display: block; margin-bottom: 8px;">1. الشاشة الأصلية في Axure Share (homepage.html):</strong>
-                        <ul style="padding-right: 1.25rem; line-height: 1.7; color: #4B5563;">
-                            <li>مربعات نصية رمادية بسيطة بعرض <code>u76, u89, u90...</code></li>
-                            <li>خط <code>Tahoma</code> الافتراضي بأحجام غير قياسية.</li>
-                            <li>نصوص مكررة ومبتورة: "خدمات" و "تتيح هذه الخدمة".</li>
-                            <li>غياب بيانات الرسوم، مدة الإنجاز، ومسار التقديم الرقمي.</li>
-                            <li>عدم توافق مع شاشات الهواتف المحمولة.</li>
-                        </ul>
-                    </div>
-                    <div class="diff-card naama">
-                        <strong style="color: var(--naama-primary); font-size: 0.95rem; display: block; margin-bottom: 8px;">2. التصميم الجديد المعتمد (منصة نما الرسمية):</strong>
-                        <ul style="padding-right: 1.25rem; line-height: 1.7; color: var(--naama-secondary);">
-                            <li>خط رسمي موحد <code>IBM Plex Sans Arabic</code> بتدرج طباعي متناسق.</li>
-                            <li>بطاقات خدمات بتنسيق <code>.service-card</code> المعتمد في منصة نما الرسمية.</li>
-                            <li>توصيف كامل وشامل لكل خدمة من الخدمات الست المضافة.</li>
-                            <li>شريط الخصائص: الرسوم المقررة، وقت التنفيذ، والقناة الإلكترونية.</li>
-                            <li>زر رئيسي معتمد <code>بدء الخدمة</code> بالأخضر الملكي <code>#1B8354</code>.</li>
-                        </ul>
-                    </div>
-                </div>
+            
             </div>
 
             <!-- Sector Tabs -->
