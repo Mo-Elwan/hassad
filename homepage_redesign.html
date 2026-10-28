@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة نما | دليل الخدمات الزراعية المضافة - إعادة تصميم HomePage</title>
+    <!-- Google Fonts: IBM Plex Sans Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Naama Design Tokens from naama.sa */
+            --naama-font-primary: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --naama-font-secondary: 'IBM Plex Sans Arabic', sans-serif;
+            
+            --naama-primary: #1B8354;
+            --naama-primary-hover: #146c43;
+            --naama-primary-active: #0e5b38;
+            --naama-primary-light: #F3FCF6;
+            --naama-primary-subtle: #EBFDF2;
+            --naama-primary-border: #BCEBD4;
+            --naama-primary-tint: #63be6c;
+            
+            --naama-secondary: #193661;
+            --naama-secondary-hover: #112543;
+            --naama-secondary-light: #F0F4FA;
+            
+            --naama-accent-blue: #4789C8;
+            --naama-accent-blue-subtle: #EFF8FF;
+            
+            --status-success: #079455;
+            --status-success-bg: #ECFDF3;
+            --status-warning: #B54708;
+            --status-warning-bg: #FEF0C7;
+            --status-info: #175CD3;
+            --status-info-bg: #EFF8FF;
+
+            --text-heading: #193661;
+            --text-title-hover: #45a44e;
+            --text-default: #161616;
+            --text-body: #395174;
+            --text-paragraph: #384250;
+            --text-muted: #6C737F;
+            --text-light: #9DA4AE;
+            
+            --border-default: #D2D6DB;
+            --border-light: #E5E7EB;
+            --bg-body: #F4F6F8;
+            --bg-surface: #FFFFFF;
+            --bg-neutral-subtle: #F8F9FA;
+
+            --radius-xs: 4px;
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+
+            --shadow-card: 0px 1px 3px rgba(16, 24, 40, 0.08), 0px 1px 2px rgba(16, 24, 40, 0.04);
+            --shadow-card-hover: 0 10px 25px -5px rgba(25, 54, 97, 0.1), 0 8px 10px -6px rgba(25, 54, 97, 0.06);
+            --shadow-dropdown: 0 12px 24px -4px rgba(16, 24, 40, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--naama-font-primary);
+            background-color: var(--bg-body);
+            color: var(--text-default);
+            line-height: 1.6;
+            direction: rtl;
+            text-align: right;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Government Bar */
+        .gov-bar {
+            background-color: #FFFFFF;
+            border-bottom: 1px solid var(--border-light);
+            padding: 6px 2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .gov-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .gov-flag {
+            width: 20px;
+            height: 14px;
+            background: #007A3D;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        .gov-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .gov-bar-left a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .gov-bar-left a:hover {
+            color: var(--naama-primary);
+        }
+
+        /* Mode Comparison Bar */
+        .comparison-toggle-bar {
+            background: linear-gradient(90deg, #193661 0%, #114c2b 100%);
+            color: white;
+            padding: 8px 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.875rem;
+        }
+
+        .toggle-btn-pill {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 4px 14px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.825rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn-pill:hover {
+            background: white;
+            color: var(--naama-secondary);
+        }
+
+        /* Main Site Header */
+        header.site-header {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0.85rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .logo-img {
+            height: 48px;
+            width: auto;
+        }
+
+        .brand-divider {
+            height: 32px;
+            width: 1px;
+            background-color: var(--border-default);
+        }
+
+        .mewa-badge-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mewa-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--naama-secondary);
+            line-height: 1.2;
+        }
+
+        .mewa-sub {
+            font-size: 0.725rem;
+            color: var(--text-muted);
+        }
+
+        /* Main Navigation Links (Refined from Axure HomePage) */
+        nav.main-nav {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .nav-link {
+            padding: 0.55rem 0.9rem;
+            border-radius: var(--radius-md);
+            color: var(--text-paragraph);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.925rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--naama-primary);
+            background-color: var(--naama-primary-light);
+        }
+
+        .nav-link.active {
+            color: var(--naama-primary);
+            background-color: var(--naama-primary-light);
+            font-weight: 600;
+        }
+
+        /* User Profile & Account Switcher */
+        .header-user-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-dropdown-box {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.35rem 0.85rem;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-full);
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .user-dropdown-box:hover {
+            border-color: var(--naama-primary);
+            box-shadow: 0 2px 6px rgba(27, 131, 84, 0.12);
+        }
+
+        .user-avatar-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--naama-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .user-text-meta {
+            text-align: right;
+            line-height: 1.15;
+        }
+
+        .user-display-name {
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: var(--text-default);
+        }
+
+        .user-switch-link {
+            font-size: 0.7rem;
+            color: var(--naama-primary);
+            font-weight: 500;
+        }
+
+        /* Breadcrumb Bar */
+        .breadcrumb-container {
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--border-light);
+            padding: 0.75rem 2rem;
+        }
+
+        .breadcrumb-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb-inner a {
+            color: var(--text-body);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb-inner a:hover {
+            color: var(--naama-primary);
+        }
+
+        .breadcrumb-inner .current {
+            color: var(--naama-primary);
+            font-weight: 600;
+        }
+
+        /* Hero / Filter Section */
+        .hero-catalog-header {
+            background: linear-gradient(135deg, #0d381e 0%, #1b8354 100%);
+            color: white;
+            padding: 2.75rem 2rem 3rem;
+            position: relative;
+        }
+
+        .hero-catalog-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-catalog-title {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-catalog-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 780px;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        /* Big Search Box */
+        .catalog-search-wrapper {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 6px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 860px;
+        }
+
+        .search-icon-svg {
+            margin-right: 12px;
+            color: var(--text-light);
+        }
+
+        .catalog-search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--text-default);
+            padding: 0.6rem 0.5rem;
+        }
+
+        .catalog-search-btn {
+            background: var(--naama-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.75rem;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .catalog-search-btn:hover {
+            background: var(--naama-primary-hover);
+        }
+
+        /* Main Content Layout (Sidebar Filters + Services List) */
+        .content-container {
+            max-width: 1400px;
+            margin: 2rem auto 4rem;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 290px 1fr;
+            gap: 2rem;
+        }
+
+        /* Filter Sidebar */
+        aside.filter-sidebar {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: var(--shadow-card);
+        }
+
+        .filter-section-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--naama-secondary);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-paragraph);
+            margin-bottom: 0.75rem;
+        }
+
+        .filter-checkbox-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-body);
+            padding: 0.4rem 0.25rem;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: background 0.15s;
+        }
+
+        .filter-checkbox-label:hover {
+            background: var(--bg-neutral-subtle);
+        }
+
+        .filter-checkbox-label input[type="checkbox"] {
+            accent-color: var(--naama-primary);
+            width: 16px;
+            height: 16px;
+            margin-left: 8px;
+        }
+
+        .filter-count-badge {
+            background: var(--bg-neutral-subtle);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            padding: 2px 7px;
+            border-radius: var(--radius-full);
+        }
+
+        /* Sector Tabs Bar */
+        .sector-tabs-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .sector-tab-pill {
+            background: white;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-full);
+            padding: 0.55rem 1.25rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-body);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .sector-tab-pill:hover {
+            border-color: var(--naama-primary);
+            color: var(--naama-primary);
+        }
+
+        .sector-tab-pill.active {
+            background: var(--naama-primary);
+            color: white;
+            border-color: var(--naama-primary);
+            box-shadow: 0 2px 8px rgba(27, 131, 84, 0.25);
+        }
+
+        .sector-tab-badge {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 1px 7px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+        }
+
+        .sector-tab-pill:not(.active) .sector-tab-badge {
+            background: var(--bg-neutral-subtle);
+            color: var(--text-muted);
+        }
+
+        /* Results Toolbar */
+        .results-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .results-count-bold {
+            color: var(--naama-secondary);
+            font-weight: 700;
+        }
+
+        .sort-select {
+            font-family: inherit;
+            font-size: 0.85rem;
+            color: var(--text-paragraph);
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            padding: 0.45rem 0.85rem;
+            background: white;
+            outline: none;
+        }
+
+        /* Services List (Naama Service Card Architecture) */
+        .services-list-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* The Service Card (Exact Naama Design System Replica) */
+        .naama-service-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 1.75rem;
+            display: flex;
+            gap: 1.5rem;
+            transition: all 0.3s ease-in-out;
+            box-shadow: var(--shadow-card);
+            position: relative;
+        }
+
+        .naama-service-card:hover {
+            border-color: var(--naama-primary-border);
+            box-shadow: var(--shadow-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .service-side-indicator {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-md);
+            background: var(--naama-primary-light);
+            color: var(--naama-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid var(--naama-primary-border);
+        }
+
+        .service-main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-badges-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .result-type-tag {
+            color: var(--naama-primary-tint);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-service-level {
+            font-size: 0.725rem;
+            padding: 2px 8px;
+            border-radius: var(--radius-xs);
+            background: #F8F8F8;
+            color: #465267;
+            border: 1px solid #E5E7EB;
+        }
+
+        .service-title-link {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-heading);
+            text-decoration: none;
+            line-height: 1.5;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+            display: inline-block;
+        }
+
+        .service-title-link:hover {
+            color: var(--text-title-hover);
+        }
+
+        .service-description-text {
+            font-family: var(--naama-font-secondary);
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--text-body);
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+        }
+
+        .service-attributes-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid var(--border-light);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .attr-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .attr-pill strong {
+            color: var(--text-paragraph);
+        }
+
+        .service-action-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: space-between;
+            min-width: 170px;
+            border-right: 1px solid var(--border-light);
+            padding-right: 1.5rem;
+        }
+
+        .favorite-btn {
+            background: transparent;
+            border: 1px solid var(--border-default);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .favorite-btn:hover {
+            color: #EAAA08;
+            border-color: #EAAA08;
+            background: #FEF0C7;
+        }
+
+        .service-btn-launch {
+            width: 100%;
+            background-color: var(--naama-primary);
+            color: white;
+            border: none;
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .service-btn-launch:hover {
+            background-color: var(--naama-primary-hover);
+            box-shadow: 0 4px 10px rgba(27, 131, 84, 0.25);
+        }
+
+        .service-btn-details {
+            width: 100%;
+            margin-top: 6px;
+            background: white;
+            border: 1px solid var(--border-default);
+            color: var(--text-body);
+            padding: 0.5rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.825rem;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .service-btn-details:hover {
+            background: var(--bg-neutral-subtle);
+            color: var(--naama-secondary);
+        }
+
+        /* Side-by-Side Axure Comparison Drawer / Modal */
+        .comparison-drawer {
+            display: none;
+            background: white;
+            border: 2px solid var(--naama-primary);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .comparison-drawer.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .drawer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 1rem;
+        }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .diff-card {
+            border-radius: var(--radius-lg);
+            padding: 1.25rem;
+            font-size: 0.85rem;
+        }
+
+        .diff-card.axure {
+            background: #F3F4F6;
+            border: 1px dashed #9CA3AF;
+        }
+
+        .diff-card.naama {
+            background: var(--naama-primary-light);
+            border: 1.5px solid var(--naama-primary-border);
+        }
+
+        /* Site Footer (Full Naama Official Architecture) */
+        footer.site-footer {
+            background-color: var(--naama-secondary);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.2fr;
+            gap: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .footer-logo-box img {
+            height: 48px;
+            filter: brightness(0) invert(1);
+            margin-bottom: 1rem;
+        }
+
+        .footer-desc-text {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            max-width: 360px;
+        }
+
+        .footer-col-title {
+            color: #88D8AD;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .footer-nav-list a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-nav-list a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Interactive Drawer / Modal for Service Details */
+        .service-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(17, 25, 39, 0.65);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-modal-overlay.active {
+            display: flex;
+        }
+
+        .service-modal-box {
+            background: white;
+            border-radius: var(--radius-xl);
+            max-width: 600px;
+            width: 90%;
+            padding: 2.25rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 1024px) {
+            .content-container {
+                grid-template-columns: 1fr;
+            }
+            .filter-sidebar {
+                display: none;
+            }
+            .diff-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Gov Bar -->
+    <div class="gov-bar">
+        <div class="gov-bar-right">
+            <span class="gov-flag"></span>
+            <span>المملكة العربية السعودية | بوابة وطنية حكومية موثوقة</span>
+        </div>
+        <div class="gov-bar-left">
+            <a href="https://naama.sa" target="_blank">عن نما</a>
+            <span>•</span>
+            <a href="#">التحول الرقمي</a>
+            <span>•</span>
+            <a href="#">الأسئلة الشائعة</a>
+            <span>•</span>
+            <a href="#">تواصل معنا</a>
+        </div>
+    </div>
+
+    <!-- Mode Comparison Banner -->
+    <div class="comparison-toggle-bar">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-weight: 700;">منصة نما 2026:</span>
+            <span>إعادة تصميم الصفحة الرئيسية (HomePage) بدقة 100% طبقاً للهوية المعتمدة لمنصة نما.</span>
+        </div>
+        <button class="toggle-btn-pill" onclick="toggleComparisonDrawer()">
+            استعراض مقارنة التحول من Axure
+        </button>
+    </div>
+
+    <!-- Main Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <!-- Brand -->
+            <div class="header-brand">
+                <a href="#" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+                    <img src="nama-logo.svg" alt="شعار منصة نما" class="logo-img" onerror="this.src='https://naama.sa/assets/images/Nama-Logo.svg'">
+                </a>
+                <div class="brand-divider"></div>
+                <div class="mewa-badge-text">
+                    <span class="mewa-title">وزارة البيئة والمياه والزراعة</span>
+                    <span class="mewa-sub">منظومة الخدمات الإلكترونية الموحدة</span>
+                </div>
+            </div>
+
+            <!-- Main Nav (Refined from Axure HomePage) -->
+            <nav class="main-nav">
+                <a class="nav-link" href="#">الرئيسية</a>
+                <a class="nav-link active" href="#">دليل الخدمات الإلكترونية</a>
+                <a class="nav-link" href="#" onclick="alert('طلباتي: 3 طلبات نشطة في القطاع الزراعي')">طلباتي (3)</a>
+                <a class="nav-link" href="#" onclick="alert('مفضلتي: لا توجد خدمات محفوظة حالياً')">مفضلتي</a>
+                <a class="nav-link" href="index.html">معالج التقديم الذكي</a>
+            </nav>
+
+            <!-- User Dropdown (Mohamed Elwan as in Axure) -->
+            <div class="header-user-controls">
+                <div class="user-dropdown-box" title="حساب المستفيد المسجل">
+                    <div class="user-avatar-circle">م.ع</div>
+                    <div class="user-text-meta">
+                        <div class="user-display-name">محمد علوان</div>
+                        <div class="user-switch-link">تغيير الحساب ‹</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Bar -->
+    <div class="breadcrumb-container">
+        <div class="breadcrumb-inner">
+            <a href="#">الرئيسية</a>
+            <span>‹</span>
+            <a href="#">دليل الخدمات الإلكترونية</a>
+            <span>‹</span>
+            <span class="current">الخدمات الزراعية (تسجيل المبيدات، الأسمدة، البذور، ومدخلات النحل)</span>
+        </div>
+    </div>
+
+    <!-- Hero Search & Catalog Section -->
+    <section class="hero-catalog-header">
+        <div class="hero-catalog-inner">
+            <h1 class="hero-catalog-title">دليل الخدمات الزراعية الإلكترونية</h1>
+            <p class="hero-catalog-subtitle">
+                تصفح وقدم على خدمات تسجيل واعتماد المدخلات الزراعية، الأسمدة ومحسنات التربة، المبيدات، البذور والتقاوي، ومستلزمات إنتاج النحل وفق الضوابط والاشتراطات الفنية المعتمدة.
+            </p>
+
+            <!-- Search Bar -->
+            <div class="catalog-search-wrapper">
+                <svg class="search-icon-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" class="catalog-search-input" id="search-input" placeholder="ابحث باسم الخدمة الزراعية، مثل: مبيد، سماد محلي، بذور، نحل..." onkeyup="filterServices()">
+                <button class="catalog-search-btn" onclick="filterServices()">بحث في الخدمات</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <div class="content-container">
+
+        <!-- Sidebar Filters -->
+        <aside class="filter-sidebar">
+            <div class="filter-section-title">
+                <span>تصفية الخدمات</span>
+                <span style="font-size: 0.775rem; color: var(--naama-primary); cursor: pointer;" onclick="resetFilters()">إعادة ضبط</span>
+            </div>
+
+            <!-- Filter Group: Service Level -->
+            <div class="filter-group">
+                <div class="filter-group-title">مستوى الخدمة</div>
+                <label class="filter-checkbox-label">
+                    <div>
+                        <input type="checkbox" checked onchange="filterServices()">
+                        <span>خدمة رئيسية</span>
+                    </div>
+                    <span class="filter-count-badge">6</span>
+                </label>
+                <label class="filter-checkbox-label">
+                    <div>
+                        <input type="checkbox" onchange="filterServices()">
+                        <span>خدمة فرعية / تكميلية</span>
+                    </div>
+                    <span class="filter-count-badge">0</span>
+                </label>
+            </div>
+
+            <!-- Filter Group: Target Audience -->
+            <div class="filter-group">
+                <div class="filter-group-title">الفئة المستهدفة</div>
+                <label class="filter-checkbox-label">
+                    <div>
+                        <input type="checkbox" checked onchange="filterServices()">
+                        <span>قطاع الأعمال والشركات</span>
+                    </div>
+                    <span class="filter-count-badge">6</span>
+                </label>
+                <label class="filter-checkbox-label">
+                    <div>
+                        <input type="checkbox" onchange="filterServices()">
+                        <span>أفراد ومزارعين</span>
+                    </div>
+                    <span class="filter-count-badge">4</span>
+                </label>
+                <label class="filter-checkbox-label">
+                    <div>
+                        <input type="checkbox" onchange="filterServices()">
+                        <span>المصانع المحلية</span>
+                    </div>
+                    <span class="filter-count-badge">3</span>
+                </label>
+            </div>
+
+            <!-- Filter Group: Channels -->
+            <div class="filter-group">
+                <div class="filter-group-title">قنوات التقديم</div>
+                <label class="filter-checkbox-label">
+                    <div>
+                        <input type="checkbox" checked onchange="filterServices()">
+                        <span>بوابة نما الرقمية (فوري)</span>
+                    </div>
+                    <span class="filter-count-badge">6</span>
+                </label>
+            </div>
+        </aside>
+
+        <!-- Services Area -->
+        <main>
+            <!-- Comparison Drawer (Toggled) -->
+            <div class="comparison-drawer" id="comparison-drawer">
+                <div class="drawer-header">
+                    <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--naama-secondary);">
+                        مقارنة التحول: شاشة HomePage القديمة في Axure vs. التصميم الجديد بهوية نما
+                    </h3>
+                    <button style="border: none; background: transparent; font-size: 1.25rem; cursor: pointer;" onclick="toggleComparisonDrawer()">✕</button>
+                </div>
+                <div class="diff-grid">
+                    <div class="diff-card axure">
+                        <strong style="color: #4B5563; font-size: 0.95rem; display: block; margin-bottom: 8px;">1. الشاشة الأصلية في Axure Share (homepage.html):</strong>
+                        <ul style="padding-right: 1.25rem; line-height: 1.7; color: #4B5563;">
+                            <li>مربعات نصية رمادية بسيطة بعرض <code>u76, u89, u90...</code></li>
+                            <li>خط <code>Tahoma</code> الافتراضي بأحجام غير قياسية.</li>
+                            <li>نصوص مكررة ومبتورة: "خدمات" و "تتيح هذه الخدمة".</li>
+                            <li>غياب بيانات الرسوم، مدة الإنجاز، ومسار التقديم الرقمي.</li>
+                            <li>عدم توافق مع شاشات الهواتف المحمولة.</li>
+                        </ul>
+                    </div>
+                    <div class="diff-card naama">
+                        <strong style="color: var(--naama-primary); font-size: 0.95rem; display: block; margin-bottom: 8px;">2. التصميم الجديد المعتمد (منصة نما الرسمية):</strong>
+                        <ul style="padding-right: 1.25rem; line-height: 1.7; color: var(--naama-secondary);">
+                            <li>خط رسمي موحد <code>IBM Plex Sans Arabic</code> بتدرج طباعي متناسق.</li>
+                            <li>بطاقات خدمات بتنسيق <code>.service-card</code> المعتمد في منصة نما الرسمية.</li>
+                            <li>توصيف كامل وشامل لكل خدمة من الخدمات الست المضافة.</li>
+                            <li>شريط الخصائص: الرسوم المقررة، وقت التنفيذ، والقناة الإلكترونية.</li>
+                            <li>زر رئيسي معتمد <code>بدء الخدمة</code> بالأخضر الملكي <code>#1B8354</code>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sector Tabs -->
+            <div class="sector-tabs-bar">
+                <div class="sector-tab-pill active">
+                    <span>القطاع الزراعي</span>
+                    <span class="sector-tab-badge">6 خدمات</span>
+                </div>
+                <div class="sector-tab-pill" onclick="alert('قسم قطاع الثروة الحيوانية')">
+                    <span>قطاع الثروة الحيوانية</span>
+                    <span class="sector-tab-badge">18</span>
+                </div>
+                <div class="sector-tab-pill" onclick="alert('قسم قطاع المياه')">
+                    <span>قطاع المياه</span>
+                    <span class="sector-tab-badge">14</span>
+                </div>
+                <div class="sector-tab-pill" onclick="alert('قسم قطاع البيئة')">
+                    <span>قطاع البيئة</span>
+                    <span class="sector-tab-badge">11</span>
+                </div>
+            </div>
+
+            <!-- Results Toolbar -->
+            <div class="results-toolbar">
+                <div>
+                    <span>عرض <strong class="results-count-bold" id="services-count">6</strong> خدمات زراعية معتمدة</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span>ترتيب حسب:</span>
+                    <select class="sort-select">
+                        <option>الأكثر طلباً</option>
+                        <option>الأحدث إضافة</option>
+                        <option>أبجدياً (أ-ي)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Services List (The 6 Services from Axure HomePage) -->
+            <div class="services-list-wrapper" id="services-list">
+
+                <!-- 1. طلب تسجيل مبيد -->
+                <article class="naama-service-card" data-title="طلب تسجيل مبيد زراعي كيميائي حيوي">
+                    <div class="service-side-indicator">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <div class="service-main-content">
+                        <div class="service-badges-row">
+                            <span class="result-type-tag">القطاع الزراعي • وقاية المزروعات</span>
+                            <span class="badge-service-level">خدمة رئيسية</span>
+                        </div>
+                        <a href="index.html" class="service-title-link">طلب تسجيل مبيد زراعي</a>
+                        <p class="service-description-text">
+                            تتيح هذه الخدمة للشركات الزراعية والمصانع تسجيل المبيدات الكيميائية والحيوية ومبيدات الصحة العامة بعد دراسة التركيب الفني واعتماد درجات السمية وفترات الأمان (PHI) وإصدار شهادة التسجيل الرسمية.
+                        </p>
+                        <div class="service-attributes-strip">
+                            <div class="attr-pill">
+                                <span>رسوم الخدمة:</span>
+                                <strong>1,500 ر.س</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>مدة التنفيذ:</span>
+                                <strong>15 يوم عمل</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>الفئة المستهدفة:</span>
+                                <strong>قطاع الأعمال والشركات</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>قناة التقديم:</span>
+                                <strong>رقمية 100%</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-action-col">
+                        <button class="favorite-btn" title="إضافة إلى مفضلتي" onclick="toggleFavorite(this)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </button>
+                        <div style="width: 100%;">
+                            <a href="index.html" class="service-btn-launch">
+                                <span>بدء الخدمة</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                            </a>
+                            <button class="service-btn-details" onclick="openDetailsModal('طلب تسجيل مبيد زراعي', '1,500 ر.س', '15 يوم عمل', 'تسجيل واعتماد المبيدات الحشرية والفطرية والعشبية المستوردة والمحلية وفق تصنيفات منظمة الصحة العالمية (WHO).')">تفاصيل الخدمة</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 2. طلب تسجيل سماد محلي -->
+                <article class="naama-service-card" data-title="طلب تسجيل سماد محلي مركب">
+                    <div class="service-side-indicator">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                    </div>
+                    <div class="service-main-content">
+                        <div class="service-badges-row">
+                            <span class="result-type-tag">القطاع الزراعي • التغذية والأسمدة</span>
+                            <span class="badge-service-level">خدمة رئيسية</span>
+                        </div>
+                        <a href="index.html" class="service-title-link">طلب تسجيل سماد محلي</a>
+                        <p class="service-description-text">
+                            تتيح للمصانع الوطنية المرخصة داخل المملكة تسجيل الأسمدة الكيميائية المركبة (NPK)، الأسمدة العضوية المعالجة، ومحسنات التربة والوسائط الزراعية الصلبة والسائلة والتأكد من مطابقتها للمواصفات القياسية السعودية.
+                        </p>
+                        <div class="service-attributes-strip">
+                            <div class="attr-pill">
+                                <span>رسوم الخدمة:</span>
+                                <strong>1,000 ر.س</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>مدة التنفيذ:</span>
+                                <strong>10 أيام عمل</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>المنشأ:</span>
+                                <strong>تصنيع محلي (المملكة)</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>قناة التقديم:</span>
+                                <strong>رقمية 100%</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-action-col">
+                        <button class="favorite-btn" title="إضافة إلى مفضلتي" onclick="toggleFavorite(this)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </button>
+                        <div style="width: 100%;">
+                            <a href="index.html" class="service-btn-launch">
+                                <span>بدء الخدمة</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                            </a>
+                            <button class="service-btn-details" onclick="openDetailsModal('طلب تسجيل سماد محلي', '1,000 ر.س', '10 أيام عمل', 'تسجيل الأسمدة المصنعة في المصانع الزراعية المعتمدة في المملكة العربية السعودية.')">تفاصيل الخدمة</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. طلب تسجيل سماد مستورد -->
+                <article class="naama-service-card" data-title="طلب تسجيل سماد مستورد أجنبي">
+                    <div class="service-side-indicator">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <div class="service-main-content">
+                        <div class="service-badges-row">
+                            <span class="result-type-tag">القطاع الزراعي • الاستيراد والجمارك</span>
+                            <span class="badge-service-level">خدمة رئيسية</span>
+                        </div>
+                        <a href="index.html" class="service-title-link">طلب تسجيل سماد مستورد</a>
+                        <p class="service-description-text">
+                            تتيح للشركات الزراعية والمستوردين تسجيل الأسمدة والمخصبات المصنعة خارج المملكة والمطابقة للوائح القياسية الخليجية، تمهيداً لفسح الشحنات عبر المنافذ الجمركية وإصدار تراخيص الاستيراد الرسمية.
+                        </p>
+                        <div class="service-attributes-strip">
+                            <div class="attr-pill">
+                                <span>رسوم الخدمة:</span>
+                                <strong>1,200 ر.س</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>مدة التنفيذ:</span>
+                                <strong>12 يوم عمل</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>المنشأ:</span>
+                                <strong>مستورد (خارجي)</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>قناة التقديم:</span>
+                                <strong>رقمية 100%</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-action-col">
+                        <button class="favorite-btn" title="إضافة إلى مفضلتي" onclick="toggleFavorite(this)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </button>
+                        <div style="width: 100%;">
+                            <a href="index.html" class="service-btn-launch">
+                                <span>بدء الخدمة</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                            </a>
+                            <button class="service-btn-details" onclick="openDetailsModal('طلب تسجيل سماد مستورد', '1,200 ر.س', '12 يوم عمل', 'تسجيل وتدقيق شهادات المنشأ والتحاليل للأسمدة المستوردة من الخارج.')">تفاصيل الخدمة</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. طلب تسجيل بذور -->
+                <article class="naama-service-card" data-title="طلب تسجيل بذور وتقاوي زراعية">
+                    <div class="service-side-indicator">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    </div>
+                    <div class="service-main-content">
+                        <div class="service-badges-row">
+                            <span class="result-type-tag">القطاع الزراعي • التقاوي والبذور</span>
+                            <span class="badge-service-level">خدمة رئيسية</span>
+                        </div>
+                        <a href="index.html" class="service-title-link">طلب تسجيل بذور</a>
+                        <p class="service-description-text">
+                            تتيح للشركات والمؤسسات الزراعية تسجيل أصناف البذور الهجينة والمحمية والمكشوفة والتأكد من نقاوتها الوراثية وخلوها من الآفات الحجرية وشهادات فحص الإنبات المعتمدة دولياً (ISTA).
+                        </p>
+                        <div class="service-attributes-strip">
+                            <div class="attr-pill">
+                                <span>رسوم الخدمة:</span>
+                                <strong>800 ر.س</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>مدة التنفيذ:</span>
+                                <strong>12 يوم عمل</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>النوع:</span>
+                                <strong>هجين / محمي / مكشوف</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>قناة التقديم:</span>
+                                <strong>رقمية 100%</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-action-col">
+                        <button class="favorite-btn" title="إضافة إلى مفضلتي" onclick="toggleFavorite(this)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </button>
+                        <div style="width: 100%;">
+                            <a href="index.html" class="service-btn-launch">
+                                <span>بدء الخدمة</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                            </a>
+                            <button class="service-btn-details" onclick="openDetailsModal('طلب تسجيل بذور', '800 ر.س', '12 يوم عمل', 'تسجيل أصناف التقاوي والبذور المحمية والمكشوفة واعتماد شهادات النقاء.')">تفاصيل الخدمة</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 5. طلب تسجيل مبيدات انتاج النحل -->
+                <article class="naama-service-card" data-title="طلب تسجيل مبيدات انتاج النحل وأمراض الخلية">
+                    <div class="service-side-indicator">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 19 21 12 17 5 21 12 2"/></svg>
+                    </div>
+                    <div class="service-main-content">
+                        <div class="service-badges-row">
+                            <span class="result-type-tag">القطاع الزراعي • الثروة النحلية</span>
+                            <span class="badge-service-level">خدمة رئيسية</span>
+                        </div>
+                        <a href="index.html" class="service-title-link">طلب تسجيل مبيدات انتاج النحل</a>
+                        <p class="service-description-text">
+                            تتيح لمربي ومستثمري قطاع النحل تسجيل أدوية ومستحضرات مكافحة آفات وأمراض طوائف نحل العسل (مثل طفيل الفاروا) لضمان حماية خلايا النحل وعدم ترك متبقيات كيميائية ضارة في العسل.
+                        </p>
+                        <div class="service-attributes-strip">
+                            <div class="attr-pill">
+                                <span>رسوم الخدمة:</span>
+                                <strong>600 ر.س</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>مدة التنفيذ:</span>
+                                <strong>8 أيام عمل</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>الهدف:</span>
+                                <strong>مكافحة آفات طوائف النحل</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>قناة التقديم:</span>
+                                <strong>رقمية 100%</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-action-col">
+                        <button class="favorite-btn" title="إضافة إلى مفضلتي" onclick="toggleFavorite(this)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </button>
+                        <div style="width: 100%;">
+                            <a href="index.html" class="service-btn-launch">
+                                <span>بدء الخدمة</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                            </a>
+                            <button class="service-btn-details" onclick="openDetailsModal('طلب تسجيل مبيدات انتاج النحل', '600 ر.س', '8 أيام عمل', 'تسجيل علاجات ومبيدات الآفات الحشرية والطفيلية لطوائف نحل العسل.')">تفاصيل الخدمة</button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 6. طلب تسجيل مغذيات انتاج النحل -->
+                <article class="naama-service-card" data-title="طلب تسجيل مغذيات انتاج النحل والمكملات">
+                    <div class="service-side-indicator">
+                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    </div>
+                    <div class="service-main-content">
+                        <div class="service-badges-row">
+                            <span class="result-type-tag">القطاع الزراعي • الثروة النحلية</span>
+                            <span class="badge-service-level">خدمة رئيسية</span>
+                        </div>
+                        <a href="index.html" class="service-title-link">طلب تسجيل مغذيات انتاج النحل</a>
+                        <p class="service-description-text">
+                            تتيح تسجيل المحاليل والمكملات الغذائية السكرية والبروتينية المخصصة لتغذية طوائف النحل خلال فترات شح المراعي، والتأكد من مطابقتها للاشتراطات الفنية المعتمدة لسلامة الغذاء.
+                        </p>
+                        <div class="service-attributes-strip">
+                            <div class="attr-pill">
+                                <span>رسوم الخدمة:</span>
+                                <strong>500 ر.س</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>مدة التنفيذ:</span>
+                                <strong>7 أيام عمل</strong>
+                            </div>
+                            <div class="attr-pill">
+                                <span>التصنيف:</span>
+                                <span>مكملات بروتينية وسكرية</span>
+                            </div>
+                            <div class="attr-pill">
+                                <span>قناة التقديم:</span>
+                                <strong>رقمية 100%</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="service-action-col">
+                        <button class="favorite-btn" title="إضافة إلى مفضلتي" onclick="toggleFavorite(this)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </button>
+                        <div style="width: 100%;">
+                            <a href="index.html" class="service-btn-launch">
+                                <span>بدء الخدمة</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                            </a>
+                            <button class="service-btn-details" onclick="openDetailsModal('طلب تسجيل مغذيات انتاج النحل', '500 ر.س', '7 أيام عمل', 'تسجيل بدائل حبوب اللقاح والمحاليل السكرية المعتمدة لتربية النحل.')">تفاصيل الخدمة</button>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Details Modal -->
+    <div class="service-modal-overlay" id="details-modal" onclick="closeModal(event)">
+        <div class="service-modal-box">
+            <h3 id="modal-title" style="font-size: 1.3rem; font-weight: 700; color: var(--naama-secondary); margin-bottom: 8px;"></h3>
+            <div style="display: flex; gap: 12px; margin-bottom: 1.25rem;">
+                <span class="badge-service-level" id="modal-fee" style="background: var(--naama-primary-light); color: var(--naama-primary); font-weight: 700;"></span>
+                <span class="badge-service-level" id="modal-duration"></span>
+            </div>
+            <p id="modal-desc" style="font-size: 0.925rem; color: var(--text-paragraph); line-height: 1.6; margin-bottom: 1.75rem;"></p>
+            <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                <button class="service-btn-details" style="width: auto;" onclick="closeModalDirect()">إغلاق</button>
+                <a href="index.html" class="service-btn-launch" style="width: auto; padding: 0.5rem 1.5rem;">الانتقال لمعالج تقديم الطلب</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Site Footer (Full Naama Official Architecture) -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div>
+                <div class="footer-logo-box">
+                    <img src="nama-logo.svg" alt="شعار نما">
+                </div>
+                <p class="footer-desc-text">
+                    منصة "نما" هي المنصة الرقمية الموحدة لوزارة البيئة والمياه والزراعة في المملكة العربية السعودية، لتمكين المستفيدين وقطاع الأعمال من إنجاز معاملاتهم بكل يسر وسهولة.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">الخدمات الإلكترونية</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="#">دليل الخدمات الزراعية</a></li>
+                    <li><a href="#">تسجيل المبيدات الزراعية</a></li>
+                    <li><a href="#">تسجيل الأسمدة والمخصبات</a></li>
+                    <li><a href="#">تسجيل البذور والتقاوي</a></li>
+                    <li><a href="#">خدمات الثروة النحلية</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">روابط تهمك</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="#">المنصة الوطنية الموحدة (GOV.SA)</a></li>
+                    <li><a href="#">ميثاق خدمة العملاء</a></li>
+                    <li><a href="#">سياسة الخصوصية والاستخدام</a></li>
+                    <li><a href="#">اتفاقية مستوى الخدمة (SLA)</a></li>
+                    <li><a href="#">حق الحصول على المعلومات</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-col-title">مركز الاتصال والدعم</h4>
+                <ul class="footer-nav-list">
+                    <li><strong>الرقم الموحد:</strong> 939 (متاح 24/7)</li>
+                    <li><strong>البريد الإلكتروني:</strong> support@naama.sa</li>
+                    <li style="margin-top: 10px;">
+                        <span style="font-size: 0.8rem; color: rgba(255,255,255,0.7);">حمل تطبيق نما للأجهزة الذكية:</span>
+                        <div style="display: flex; gap: 8px; margin-top: 6px;">
+                            <span style="background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 4px; font-size: 0.75rem;">App Store</span>
+                            <span style="background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 4px; font-size: 0.75rem;">Google Play</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-bar">
+            <span>جميع الحقوق محفوظة لوزارة البيئة والمياه والزراعة © 2026 - المملكة العربية السعودية</span>
+            <span>آخر تحديث للمنصة: 28 أكتوبر 2026</span>
+        </div>
+    </footer>
+
+    <!-- Interactive JS -->
+    <script>
+        function toggleComparisonDrawer() {
+            const drawer = document.getElementById('comparison-drawer');
+            drawer.classList.toggle('active');
+        }
+
+        function filterServices() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.naama-service-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                const text = card.textContent.toLowerCase();
+                if (!query || title.includes(query) || text.includes(query)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            document.getElementById('services-count').textContent = visibleCount;
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            filterServices();
+        }
+
+        function toggleFavorite(btn) {
+            const svg = btn.querySelector('svg');
+            if (btn.style.color === 'rgb(234, 170, 8)') {
+                btn.style.color = '';
+                btn.style.backgroundColor = '';
+                btn.style.borderColor = '';
+                svg.style.fill = 'none';
+            } else {
+                btn.style.color = '#EAAA08';
+                btn.style.backgroundColor = '#FEF0C7';
+                btn.style.borderColor = '#EAAA08';
+                svg.style.fill = '#EAAA08';
+            }
+        }
+
+        function openDetailsModal(title, fee, duration, desc) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-fee').textContent = 'الرسوم: ' + fee;
+            document.getElementById('modal-duration').textContent = 'المدة المقدرة: ' + duration;
+            document.getElementById('modal-desc').textContent = desc;
+            document.getElementById('details-modal').classList.add('active');
+        }
+
+        function closeModal(event) {
+            if (event.target.id === 'details-modal') {
+                closeModalDirect();
+            }
+        }
+
+        function closeModalDirect() {
+            document.getElementById('details-modal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

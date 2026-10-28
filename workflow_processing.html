@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة نما | نظام معالجة الطلبات ومسار سير العمل (WorkFlow Portal)</title>
+    <!-- Google Fonts: IBM Plex Sans Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Naama Official Design System Tokens */
+            --naama-font: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            
+            --naama-primary: #1B8354;
+            --naama-primary-hover: #146c43;
+            --naama-primary-active: #0e5b38;
+            --naama-primary-light: #F3FCF6;
+            --naama-primary-subtle: #EBFDF2;
+            --naama-primary-border: #BCEBD4;
+            
+            --naama-secondary: #193661;
+            --naama-secondary-hover: #112543;
+            --naama-secondary-light: #F0F4FA;
+            
+            --naama-accent-blue: #4789C8;
+            --naama-accent-blue-subtle: #EFF8FF;
+            
+            --status-success: #079455;
+            --status-success-bg: #ECFDF3;
+            --status-warning: #B54708;
+            --status-warning-bg: #FEF0C7;
+            --status-danger: #D92D20;
+            --status-danger-bg: #FEF3F2;
+            --status-info: #175CD3;
+            --status-info-bg: #EFF8FF;
+
+            --text-heading: #193661;
+            --text-default: #161616;
+            --text-body: #384250;
+            --text-muted: #6C737F;
+            --text-light: #9DA4AE;
+            
+            --border-default: #D2D6DB;
+            --border-light: #E5E7EB;
+            --bg-body: #F4F6F8;
+            --bg-surface: #FFFFFF;
+            --bg-neutral-subtle: #F8F9FA;
+
+            --radius-xs: 4px;
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-full: 9999px;
+
+            --shadow-xs: 0px 1px 2px rgba(16, 24, 40, 0.05);
+            --shadow-sm: 0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px rgba(16, 24, 40, 0.06);
+            --shadow-md: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+            --shadow-lg: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+            --shadow-xl: 0px 20px 24px -4px rgba(16, 24, 40, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--naama-font);
+            background-color: var(--bg-body);
+            color: var(--text-default);
+            line-height: 1.6;
+            direction: rtl;
+            text-align: right;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Government Bar */
+        .gov-bar {
+            background-color: #FFFFFF;
+            border-bottom: 1px solid var(--border-light);
+            padding: 5px 2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .gov-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .gov-flag {
+            width: 18px;
+            height: 12px;
+            background: #007A3D;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        /* Main Site Header */
+        header.site-header {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 500;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .header-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0.75rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .logo-img {
+            height: 46px;
+            width: auto;
+        }
+
+        .brand-divider {
+            height: 30px;
+            width: 1px;
+            background-color: var(--border-default);
+        }
+
+        .mewa-badge-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mewa-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--naama-secondary);
+            line-height: 1.2;
+        }
+
+        .mewa-sub {
+            font-size: 0.725rem;
+            color: var(--text-muted);
+        }
+
+        /* Role Selector Dropdown in Header */
+        .role-switcher-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-neutral-subtle);
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-default);
+        }
+
+        .role-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .role-select {
+            background: transparent;
+            border: none;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--naama-secondary);
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* User Profile Pill */
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.35rem 0.85rem;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-full);
+            background: white;
+            cursor: pointer;
+        }
+
+        .user-avatar-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--naama-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .user-text-meta {
+            text-align: right;
+            line-height: 1.2;
+        }
+
+        .user-name {
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: var(--text-default);
+        }
+
+        .user-department {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* Main Container */
+        .portal-container {
+            max-width: 1440px;
+            margin: 1.5rem auto 4rem;
+            padding: 0 2rem;
+        }
+
+        /* Hero / KPI Summary Bar */
+        .workflow-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 4px;
+            background: transparent;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-card.active::before {
+            background: var(--naama-primary);
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .stat-number {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--naama-secondary);
+            line-height: 1.1;
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* ================= WORKFLOW INTERACTIVE PIPELINE (خيط سير العمل) ================= */
+        .pipeline-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            padding: 1.75rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pipeline-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 0.85rem;
+        }
+
+        .pipeline-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pipeline-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--naama-secondary);
+        }
+
+        .pipeline-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Stepper Flow Grid */
+        .stages-flow {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            position: relative;
+        }
+
+        .stage-box {
+            background: #FAFCFA;
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 1rem 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+        }
+
+        .stage-box:hover {
+            border-color: var(--naama-primary);
+            background: var(--naama-primary-light);
+        }
+
+        .stage-box.active {
+            border-color: var(--naama-primary);
+            background: var(--naama-primary-light);
+            box-shadow: 0 0 0 2px var(--naama-primary);
+        }
+
+        .stage-num-badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: white;
+            border: 1.5px solid var(--border-default);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .stage-box.active .stage-num-badge {
+            background: var(--naama-primary);
+            border-color: var(--naama-primary);
+            color: white;
+        }
+
+        .stage-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-default);
+            line-height: 1.3;
+        }
+
+        .stage-role-tag {
+            font-size: 0.675rem;
+            color: var(--text-muted);
+            background: white;
+            padding: 2px 6px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--border-light);
+        }
+
+        .stage-count {
+            position: absolute;
+            top: -8px;
+            left: -6px;
+            background: var(--naama-secondary);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 1px 6px;
+            border-radius: var(--radius-full);
+        }
+
+        /* ================= MAIN DATA TABLE & TOOLBAR ================= */
+        .table-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 3rem;
+        }
+
+        .table-toolbar {
+            padding: 1.25rem 1.75rem;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-inputs-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            max-width: 680px;
+        }
+
+        .search-field {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-field input {
+            width: 100%;
+            padding: 0.65rem 1rem 0.65rem 2.25rem;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.875rem;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        .search-field input:focus {
+            border-color: var(--naama-primary);
+            box-shadow: 0 0 0 3px rgba(27, 131, 84, 0.12);
+        }
+
+        .search-icon-pos {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .filter-select {
+            padding: 0.65rem 1rem;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.85rem;
+            background: white;
+            outline: none;
+        }
+
+        /* Table Styling */
+        .requests-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .requests-table th {
+            text-align: right;
+            padding: 1rem 1.25rem;
+            background: #FAFCFA;
+            font-size: 0.825rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-bottom: 1.5px solid var(--border-default);
+            white-space: nowrap;
+        }
+
+        .requests-table td {
+            padding: 1.15rem 1.25rem;
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--border-light);
+            color: var(--text-default);
+            vertical-align: middle;
+        }
+
+        .requests-table tr:hover td {
+            background-color: #FDFEFE;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.775rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-badge.in-progress {
+            background: var(--status-warning-bg);
+            color: var(--status-warning);
+        }
+
+        .status-badge.approved {
+            background: var(--status-success-bg);
+            color: var(--status-success);
+        }
+
+        .status-badge.lab-testing {
+            background: var(--naama-accent-blue-subtle);
+            color: var(--status-info);
+        }
+
+        .btn-action-process {
+            background: var(--naama-primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.1rem;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.825rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-action-process:hover {
+            background: var(--naama-primary-hover);
+            box-shadow: 0 2px 6px rgba(27, 131, 84, 0.25);
+        }
+
+        /* ================= MODAL / DRAWER FOR REQUEST PROCESSING ================= */
+        .process-drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(17, 25, 39, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .process-drawer-overlay.active {
+            display: flex;
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .drawer-box {
+            background: white;
+            border-radius: var(--radius-xl);
+            max-width: 980px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .drawer-header {
+            padding: 1.5rem 2rem;
+            background: #FAFCFA;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .drawer-req-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .close-drawer-btn {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: var(--radius-md);
+        }
+
+        .close-drawer-btn:hover {
+            background: #E5E7EB;
+            color: var(--text-default);
+        }
+
+        .drawer-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        /* Drawer Tabs */
+        .drawer-nav-tabs {
+            display: flex;
+            border-bottom: 1.5px solid var(--border-light);
+            gap: 1.5rem;
+        }
+
+        .drawer-tab {
+            padding: 0.6rem 0.25rem 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: 2.5px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .drawer-tab:hover {
+            color: var(--naama-primary);
+        }
+
+        .drawer-tab.active {
+            color: var(--naama-primary);
+            border-bottom-color: var(--naama-primary);
+        }
+
+        /* Detail Panels */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        .info-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            background: var(--bg-neutral-subtle);
+            padding: 1.25rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+        }
+
+        .info-cell {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-cell-label {
+            font-size: 0.775rem;
+            color: var(--text-muted);
+        }
+
+        .info-cell-val {
+            font-size: 0.925rem;
+            font-weight: 600;
+            color: var(--text-default);
+        }
+
+        /* Action Decision Box (لوحة اتخاذ القرار) */
+        .decision-box {
+            border: 1.5px solid var(--naama-primary-border);
+            border-radius: var(--radius-xl);
+            background: var(--naama-primary-light);
+            padding: 1.75rem;
+        }
+
+        .decision-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--naama-primary-active);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .decision-radios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-bottom: 1.25rem;
+        }
+
+        .decision-radio-card {
+            background: white;
+            border: 1.5px solid var(--border-default);
+            border-radius: var(--radius-md);
+            padding: 0.85rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .decision-radio-card.selected {
+            border-color: var(--naama-primary);
+            background: #EBFDF2;
+            color: var(--naama-primary-active);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-default);
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.875rem;
+            outline: none;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-textarea:focus {
+            border-color: var(--naama-primary);
+        }
+
+        .drawer-footer {
+            padding: 1.25rem 2rem;
+            background: #FAFCFA;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            position: sticky;
+            bottom: 0;
+        }
+
+        .btn-cancel {
+            background: white;
+            border: 1px solid var(--border-default);
+            color: var(--text-body);
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-submit-decision {
+            background: var(--naama-primary);
+            color: white;
+            border: none;
+            padding: 0.65rem 1.75rem;
+            border-radius: var(--radius-md);
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-submit-decision:hover {
+            background: var(--naama-primary-hover);
+        }
+
+        @media (max-width: 1100px) {
+            .stages-flow {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .stages-flow {
+                grid-template-columns: 1fr;
+            }
+            .info-grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Gov Bar -->
+    <div class="gov-bar">
+        <div class="gov-bar-right">
+            <span class="gov-flag"></span>
+            <span>المملكة العربية السعودية | بوابة الموظف الحكومي - منصة نما</span>
+        </div>
+        <div>
+            <span>الإدارة العامة للمدخلات الزراعية والوقاية والبيئة</span>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <div class="header-brand">
+                <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+                    <img src="nama-logo.svg" alt="شعار منصة نما" class="logo-img" onerror="this.src='https://naama.sa/assets/images/Nama-Logo.svg'">
+                </a>
+                <div class="brand-divider"></div>
+                <div class="mewa-badge-text">
+                    <span class="mewa-title">وزارة البيئة والمياه والزراعة</span>
+                    <span class="mewa-sub">منظومة معالجة واعتماد الطلبات الزراعية (WorkFlow)</span>
+                </div>
+            </div>
+
+            <!-- Role Selector -->
+            <div class="role-switcher-box">
+                <span class="role-label">تبديل دور العمل:</span>
+                <select class="role-select" id="role-select" onchange="switchStaffRole(this.value)">
+                    <option value="initial" selected>موظف الدراسة المبدئية</option>
+                    <option value="technical">باحث الدراسة الفنية</option>
+                    <option value="supervisor">مشرف القسم الزراعي</option>
+                    <option value="lab">الجهة البحثية ومختبر الفحص</option>
+                    <option value="committee">لجنة تسجيل المدخلات الزراعية</option>
+                </select>
+            </div>
+
+            <!-- User Info -->
+            <div class="user-pill">
+                <div class="user-avatar-circle">م.ع</div>
+                <div class="user-text-meta">
+                    <div class="user-name">محمد علوان</div>
+                    <div class="user-department" id="user-role-badge">مسؤول دراسة وتدقيق المعاملات</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Portal Content -->
+    <div class="portal-container">
+
+        <!-- KPI Summary Stats -->
+        <div class="workflow-stats-grid">
+            <div class="stat-card active" onclick="filterByStage('all')">
+                <div class="stat-info">
+                    <span class="stat-label">إجمالي الطلبات المعلقة</span>
+                    <span class="stat-number" id="kpi-total">5</span>
+                </div>
+                <div class="stat-icon" style="background: var(--naama-secondary-light); color: var(--naama-secondary);">📑</div>
+            </div>
+            <div class="stat-card" onclick="filterByStage(1)">
+                <div class="stat-info">
+                    <span class="stat-label">الدراسة المبدئية</span>
+                    <span class="stat-number" id="kpi-s1">1</span>
+                </div>
+                <div class="stat-icon" style="background: var(--status-warning-bg); color: var(--status-warning);">🔍</div>
+            </div>
+            <div class="stat-card" onclick="filterByStage(2)">
+                <div class="stat-info">
+                    <span class="stat-label">الدراسة الفنية</span>
+                    <span class="stat-number" id="kpi-s2">1</span>
+                </div>
+                <div class="stat-icon" style="background: var(--naama-accent-blue-subtle); color: var(--status-info);">⚙️</div>
+            </div>
+            <div class="stat-card" onclick="filterByStage(5)">
+                <div class="stat-info">
+                    <span class="stat-label">الفحص المخبري والجهة البحثية</span>
+                    <span class="stat-number" id="kpi-s5">1</span>
+                </div>
+                <div class="stat-icon" style="background: #F3E8FF; color: #7E22CE;">🧪</div>
+            </div>
+            <div class="stat-card" onclick="filterByStage(7)">
+                <div class="stat-info">
+                    <span class="stat-label">لجنة التسجيل والاعتماد</span>
+                    <span class="stat-number" id="kpi-s7">1</span>
+                </div>
+                <div class="stat-icon" style="background: var(--status-success-bg); color: var(--status-success);">📜</div>
+            </div>
+        </div>
+
+        <!-- ================= VISUAL WORKFLOW PIPELINE (خيط سير العمل) ================= -->
+        <div class="pipeline-card">
+            <div class="pipeline-header">
+                <div class="pipeline-title-group">
+                    <span style="font-size: 1.4rem;">🔗</span>
+                    <div>
+                        <h2 class="pipeline-title">خيط سير العمل المعتمد (Agricultural Approval Workflow)</h2>
+                        <span class="pipeline-subtitle">انقر على أي مرحلة من المراحل السبع لتصفية الطلبات المتواجدة بها فوراً:</span>
+                    </div>
+                </div>
+                <button class="btn-cancel" onclick="filterByStage('all')" style="font-size: 0.8rem; padding: 0.4rem 0.9rem;">إظهار كل المراحل</button>
+            </div>
+
+            <div class="stages-flow">
+                <!-- Stage 1 -->
+                <div class="stage-box active" id="stage-box-1" onclick="filterByStage(1)">
+                    <span class="stage-count">1</span>
+                    <div class="stage-num-badge">1</div>
+                    <span class="stage-title">الدراسة المبدئية</span>
+                    <span class="stage-role-tag">تدقيق المستندات</span>
+                </div>
+
+                <!-- Stage 2 -->
+                <div class="stage-box" id="stage-box-2" onclick="filterByStage(2)">
+                    <span class="stage-count">1</span>
+                    <div class="stage-num-badge">2</div>
+                    <span class="stage-title">الدراسة الفنية</span>
+                    <span class="stage-role-tag">باحث فني</span>
+                </div>
+
+                <!-- Stage 3 -->
+                <div class="stage-box" id="stage-box-3" onclick="filterByStage(3)">
+                    <span class="stage-count">0</span>
+                    <div class="stage-num-badge">3</div>
+                    <span class="stage-title">مشرف القسم</span>
+                    <span class="stage-role-tag">اعتماد مبدئي</span>
+                </div>
+
+                <!-- Stage 4 -->
+                <div class="stage-box" id="stage-box-4" onclick="filterByStage(4)">
+                    <span class="stage-count">1</span>
+                    <div class="stage-num-badge">4</div>
+                    <span class="stage-title">سداد الرسوم والعينة</span>
+                    <span class="stage-role-tag">سداد 128 وتكويد</span>
+                </div>
+
+                <!-- Stage 5 -->
+                <div class="stage-box" id="stage-box-5" onclick="filterByStage(5)">
+                    <span class="stage-count">1</span>
+                    <div class="stage-num-badge">5</div>
+                    <span class="stage-title">الجهة البحثية</span>
+                    <span class="stage-role-tag">الفحص المخبري</span>
+                </div>
+
+                <!-- Stage 6 -->
+                <div class="stage-box" id="stage-box-6" onclick="filterByStage(6)">
+                    <span class="stage-count">0</span>
+                    <div class="stage-num-badge">6</div>
+                    <span class="stage-title">تقرير التجارب</span>
+                    <span class="stage-role-tag">مراجعة النتائج</span>
+                </div>
+
+                <!-- Stage 7 -->
+                <div class="stage-box" id="stage-box-7" onclick="filterByStage(7)">
+                    <span class="stage-count">1</span>
+                    <div class="stage-num-badge">7</div>
+                    <span class="stage-title">لجنة التسجيل</span>
+                    <span class="stage-role-tag">إصدار الشهادة</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= REQUESTS TABLE ================= -->
+        <div class="table-card">
+            <div class="table-toolbar">
+                <div class="search-inputs-group">
+                    <div class="search-field">
+                        <input type="text" id="filter-search" placeholder="بحث برقم الطلب (مثال: REQ-213213)، السجل التجاري، اسم الشركة، أو الصنف..." onkeyup="searchRequests()">
+                        <span class="search-icon-pos">🔍</span>
+                    </div>
+                    <select class="filter-select" id="filter-type" onchange="searchRequests()">
+                        <option value="all">جميع أنواع المعاملات</option>
+                        <option value="مبيد">مبيدات زراعية</option>
+                        <option value="سماد">أسمدة ومخصبات</option>
+                        <option value="بذور">بذور وتقاوي</option>
+                        <option value="نحل">مدخلات النحل</option>
+                    </select>
+                </div>
+
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    عرض <strong style="color: var(--naama-secondary);" id="showing-count">5</strong> معاملات في قائمة الانتظار
+                </div>
+            </div>
+
+            <table class="requests-table">
+                <thead>
+                    <tr>
+                        <th>رقم الطلب</th>
+                        <th>اسم الشركة / المنشأة</th>
+                        <th>السجل التجاري</th>
+                        <th>النوع والخدمة</th>
+                        <th>المرحلة الإجرائية الحالية</th>
+                        <th>تاريخ التقديم</th>
+                        <th>حالة الطلب</th>
+                        <th>الإجراء المطلوب</th>
+                    </tr>
+                </thead>
+                <tbody id="requests-tbody">
+                    <!-- Populated dynamically via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- ================= MODAL / DRAWER FOR DETAILED ORDER PROCESSING ================= -->
+    <div class="process-drawer-overlay" id="process-drawer" onclick="handleOverlayClick(event)">
+        <div class="drawer-box">
+            <!-- Header -->
+            <div class="drawer-header">
+                <div class="drawer-req-meta">
+                    <div class="user-avatar-circle" style="background: var(--naama-secondary);">📋</div>
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--naama-secondary);" id="d-req-number">REQ-213213</h3>
+                            <span class="status-badge in-progress" id="d-req-status">تحت الإجراء</span>
+                        </div>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);" id="d-req-service">تسجيل سماد محلي مركب</span>
+                    </div>
+                </div>
+                <button class="close-drawer-btn" onclick="closeDrawer()">✕</button>
+            </div>
+
+            <!-- Body Tabs -->
+            <div class="drawer-body">
+                <div class="drawer-nav-tabs">
+                    <div class="drawer-tab active" onclick="switchDrawerTab('tab-company')">بيانات المنشأة والسجل</div>
+                    <div class="drawer-tab" onclick="switchDrawerTab('tab-specs')">المواصفات الفنية للمنتج</div>
+                    <div class="drawer-tab" onclick="switchDrawerTab('tab-docs')">المرفقات والشهادات المخبرية</div>
+                    <div class="drawer-tab" onclick="switchDrawerTab('tab-history')">سجل الإجراءات والتدقيق</div>
+                </div>
+
+                <!-- Tab 1: Company Info -->
+                <div class="tab-panel active" id="tab-company">
+                    <div class="info-grid-2">
+                        <div class="info-cell">
+                            <span class="info-cell-label">اسم الشركة / المؤسسة:</span>
+                            <span class="info-cell-val" id="d-comp-name">شركة محمد وأحمد للحلول الزراعية</span>
+                        </div>
+                        <div class="info-cell">
+                            <span class="info-cell-label">رقم السجل التجاري:</span>
+                            <span class="info-cell-val" id="d-comp-cr">100010101</span>
+                        </div>
+                        <div class="info-cell">
+                            <span class="info-cell-label">اسم المفوض المسؤول:</span>
+                            <span class="info-cell-val">م. أحمد بن محمد الشهري</span>
+                        </div>
+                        <div class="info-cell">
+                            <span class="info-cell-label">رقم الهوية الوطنية:</span>
+                            <span class="info-cell-val">1094829104</span>
+                        </div>
+                        <div class="info-cell">
+                            <span class="info-cell-label">رقم الهاتف:</span>
+                            <span class="info-cell-val" dir="ltr">0504829104</span>
+                        </div>
+                        <div class="info-cell">
+                            <span class="info-cell-label">البريد الإلكتروني:</span>
+                            <span class="info-cell-val">ahmed@agro-solutions.sa</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Specs -->
+                <div class="tab-panel" id="tab-specs">
+                    <div class="info-grid-2">
+                        <div class="info-cell">
+                            <span class="info-cell-label">الاسم التجاري للمنتج:</span>
+                            <span class="info-cell-val" id="d-prod-name">سماد نيترو فورت 20-20-20</span>
+                        </div>
+                        <div class="info-cell">
+                            <span class="info-cell-label">بلد المنشأ / المصنع:</span>
+                            <span class="info-cell-val">المملكة العربية السعودية (الرياض)</span>
+                        </div>
+                        <div class="info-cell">
+                            <span class="info-cell-label">طبيعة وهيئة المنتج:</span>
+                            <span class="info-cell-val">صلب - بودرة سريعة الذوبان</span>
+                        </div>
+                        <div class="info-cell">
+                            <span class="info-cell-label">التركيبة الكيميائية:</span>
+                            <span class="info-cell-val">NPK 20-20-20 + عناصر صغرى مخلبية</span>
+                        </div>
+                        <div class="info-cell">
+                            <span class="info-cell-label">حجم / وزن العبوة:</span>
+                            <span class="info-cell-val">أكياس بولي إيثيلين 25 كجم</span>
+                        </div>
+                        <div class="info-cell">
+                            <span class="info-cell-label">الغرض من التسجيل:</span>
+                            <span class="info-cell-val">تداول وتوزيع محلي</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Docs -->
+                <div class="tab-panel" id="tab-docs">
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: var(--bg-neutral-subtle); border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+                            <div>
+                                <strong>شهادة التحليل الكيميائي للمادة (CoA) - معتمدة</strong>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">PDF • 2.4 MB • تم التحقق</div>
+                            </div>
+                            <button class="btn-cancel" style="padding: 0.35rem 0.75rem;" onclick="alert('جاري تنزيل شهادة التحليل...')">استعراض الملف</button>
+                        </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: var(--bg-neutral-subtle); border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+                            <div>
+                                <strong>صحيفة بيانات سلامة المادة (MSDS)</strong>
+                                <div style="font-size: 0.75rem; color: var(--text-muted);">PDF • 1.8 MB • تم التحقق</div>
+                            </div>
+                            <button class="btn-cancel" style="padding: 0.35rem 0.75rem;" onclick="alert('جاري استعراض ملف السلامة...')">استعراض الملف</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: History -->
+                <div class="tab-panel" id="tab-history">
+                    <ul style="padding-right: 1.25rem; font-size: 0.85rem; line-height: 1.8; color: var(--text-body);">
+                        <li><strong>2026/10/28 10:15 ص:</strong> تقديم الطلب وسداد الرسوم الحكومية المبدئية بنجاح عبر سداد.</li>
+                        <li><strong>2026/10/28 11:30 ص:</strong> اجتياز التدقيق الآلي والتحقق من صلاحية السجل التجاري (وزارة التجارة).</li>
+                        <li><strong>المرحلة الحالية:</strong> بانتظار الإجراء الفني للمرحلة المحددة.</li>
+                    </ul>
+                </div>
+
+                <!-- Action / Decision Box (لوحة اتخاذ القرار الإداري والفني) -->
+                <div class="decision-box">
+                    <div class="decision-title">
+                        <span>⚖️</span>
+                        <span id="decision-box-heading">إجراء معالجة المعاملة بالمرحلة الحالية</span>
+                    </div>
+
+                    <div class="decision-radios-grid" id="decision-radios">
+                        <label class="decision-radio-card selected" onclick="selectDecisionRadio(this)">
+                            <input type="radio" name="decision_action" value="approve" checked>
+                            <span id="radio-action-1">اعتماد وإحالة للمرحلة التالية</span>
+                        </label>
+                        <label class="decision-radio-card" onclick="selectDecisionRadio(this)">
+                            <input type="radio" name="decision_action" value="return">
+                            <span id="radio-action-2">إرجاع لطلب استكمال وتعديل</span>
+                        </label>
+                        <label class="decision-radio-card" onclick="selectDecisionRadio(this)">
+                            <input type="radio" name="decision_action" value="reject">
+                            <span>رفض الطلب نهائياً</span>
+                        </label>
+                    </div>
+
+                    <!-- Lab Specific Field (when at Stage 4 or 5) -->
+                    <div id="lab-meta-fields" style="display: none; margin-bottom: 1rem; background: white; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-default);">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div>
+                                <label style="font-size: 0.8rem; font-weight: 600;">رقم العينة المخبرية المخصصة:</label>
+                                <input type="text" id="input-sample-id" value="SMP-2026-9042" style="width: 100%; padding: 0.4rem 0.6rem; border: 1px solid var(--border-default); border-radius: 4px; font-family: inherit;">
+                            </div>
+                            <div>
+                                <label style="font-size: 0.8rem; font-weight: 600;">الجهة / المركز البحثي:</label>
+                                <select style="width: 100%; padding: 0.45rem 0.6rem; border: 1px solid var(--border-default); border-radius: 4px; font-family: inherit;">
+                                    <option>المركز الوطني لبحوث وتطوير الزراعة المستدامة (استدامة)</option>
+                                    <option>مختبرات وقاية النبات المركزية بالرياض</option>
+                                    <option>مركز أبحاث وتطوير النحل والعسل</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label style="font-size: 0.825rem; font-weight: 600; color: var(--text-default); display: block; margin-bottom: 6px;">ملاحظات وتوصيات القرار الفني / الإداري: <span style="color: var(--status-danger);">*</span></label>
+                        <textarea class="form-textarea" id="decision-notes" placeholder="اكتب مبررات التوصية أو اشتراطات القبول، أو أسباب الإعادة لمقدم الطلب..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="drawer-footer">
+                <button class="btn-cancel" onclick="closeDrawer()">إلغاء</button>
+                <button class="btn-submit-decision" onclick="submitDecision()">تأكيد الإجراء وتحديث المسار الإجرائي</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        // Sample requests matching Axure workflow data
+        const initialRequests = [
+            {
+                id: "REQ-213213",
+                company: "شركة محمد وأحمد للحلول الزراعية",
+                cr: "100010101",
+                service: "طلب تسجيل سماد محلي مركب",
+                type: "سماد",
+                stage: 1, // الدراسة المبدئية
+                stageName: "1. الاعتماد المبدئي - الدراسة المبدئية",
+                date: "2026/10/28",
+                status: "تحت الإجراء",
+                statusClass: "in-progress"
+            },
+            {
+                id: "REQ-481092",
+                company: "شركة التنمية والوقاية الزراعية",
+                cr: "1010485923",
+                service: "طلب تسجيل مبيد حشري كيميائي",
+                type: "مبيد",
+                stage: 2, // الدراسة الفنية
+                stageName: "2. الاعتماد المبدئي - الدراسة الفنية",
+                date: "2026/10/27",
+                status: "تحت الإجراء",
+                statusClass: "in-progress"
+            },
+            {
+                id: "REQ-392184",
+                company: "مؤسسة اليمامة للبذور والتقاوي",
+                cr: "1010394821",
+                service: "طلب تسجيل بذور طماطم هجين",
+                type: "بذور",
+                stage: 4, // قسم التجارب وإرسال العينة
+                stageName: "4. قسم التجارب - إرسال العينة",
+                date: "2026/10/25",
+                status: "بانتظار العينة",
+                statusClass: "in-progress"
+            },
+            {
+                id: "REQ-104928",
+                company: "شركة مزارع ومناحل الشفاء",
+                cr: "1010948210",
+                service: "تسجيل مبيدات مكافحة آفات النحل (الفاروا)",
+                type: "نحل",
+                stage: 5, // فحص الجهة البحثية
+                stageName: "5. فحص الجهة البحثية والمختبر",
+                date: "2026/10/22",
+                status: "فحص مخبري",
+                statusClass: "lab-testing"
+            },
+            {
+                id: "REQ-784019",
+                company: "شركة الأسمدة العالمية للشرق الأوسط",
+                cr: "1000492819",
+                service: "طلب تسجيل سماد مركب مستورد",
+                type: "سماد",
+                stage: 7, // لجنة التسجيل والاعتماد النهائي
+                stageName: "7. العرض على لجنة التسجيل",
+                date: "2026/10/18",
+                status: "بانتظار اللجنة",
+                statusClass: "in-progress"
+            }
+        ];
+
+        let currentRequests = [...initialRequests];
+        let selectedStageFilter = 'all';
+        let currentActiveOrder = null;
+
+        function renderTable(requests) {
+            const tbody = document.getElementById('requests-tbody');
+            tbody.innerHTML = '';
+
+            requests.forEach(req => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${req.id}</strong></td>
+                    <td>${req.company}</td>
+                    <td><code style="background: #F3F4F6; padding: 2px 6px; border-radius: 4px;">${req.cr}</code></td>
+                    <td>${req.service}</td>
+                    <td>
+                        <span style="font-weight: 600; color: var(--naama-secondary);">${req.stageName}</span>
+                    </td>
+                    <td>${req.date}</td>
+                    <td><span class="status-badge ${req.statusClass}">${req.status}</span></td>
+                    <td>
+                        <button class="btn-action-process" onclick="openProcessDrawer('${req.id}')">
+                            <span>معالجة الطلب</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('showing-count').textContent = requests.length;
+        }
+
+        function filterByStage(stageNum) {
+            selectedStageFilter = stageNum;
+
+            // Update Stage Boxes highlight
+            document.querySelectorAll('.stage-box').forEach(b => b.classList.remove('active'));
+            if (stageNum !== 'all') {
+                const target = document.getElementById('stage-box-' + stageNum);
+                if (target) target.classList.add('active');
+            }
+
+            searchRequests();
+        }
+
+        function searchRequests() {
+            const q = document.getElementById('filter-search').value.toLowerCase().trim();
+            const typeFilter = document.getElementById('filter-type').value;
+
+            const filtered = currentRequests.filter(r => {
+                const matchStage = (selectedStageFilter === 'all') || (r.stage == selectedStageFilter);
+                const matchType = (typeFilter === 'all') || (r.type === typeFilter);
+                const matchQuery = !q || r.id.toLowerCase().includes(q) || r.company.toLowerCase().includes(q) || r.cr.includes(q) || r.service.toLowerCase().includes(q);
+                return matchStage && matchType && matchQuery;
+            });
+
+            renderTable(filtered);
+        }
+
+        function openProcessDrawer(reqId) {
+            const req = currentRequests.find(r => r.id === reqId);
+            if (!req) return;
+            currentActiveOrder = req;
+
+            document.getElementById('d-req-number').textContent = req.id;
+            document.getElementById('d-req-service').textContent = req.service;
+            document.getElementById('d-comp-name').textContent = req.company;
+            document.getElementById('d-comp-cr').textContent = req.cr;
+
+            const headingEl = document.getElementById('decision-box-heading');
+            const radio1 = document.getElementById('radio-action-1');
+            const radio2 = document.getElementById('radio-action-2');
+            const labFields = document.getElementById('lab-meta-fields');
+
+            // Customize decisions per workflow stage (mapping Axure adminreview 1 to 8)
+            if (req.stage === 1) {
+                headingEl.textContent = 'إجراء الدراسة المبدئية والتحقق من المستندات والسجل';
+                radio1.textContent = 'إرسال إلى الدراسة الفنية المتخصصة';
+                radio2.textContent = 'طلب استكمال نواقص ومستندات من مقدم الطلب';
+                labFields.style.display = 'none';
+            } else if (req.stage === 2) {
+                headingEl.textContent = 'إجراء الدراسة الفنية ومطابقة التركيب ودرجات السمية';
+                radio1.textContent = 'إرسال إلى مشرف القسم الزراعي للاعتماد المبدئي';
+                radio2.textContent = 'إرجاع للدراسة المبدئية لإعادة تدقيق البيانات';
+                labFields.style.display = 'none';
+            } else if (req.stage === 4 || req.stage === 5) {
+                headingEl.textContent = 'إجراءات تكويد العينة وإحالتها للجهة البحثية والمختبرات';
+                radio1.textContent = 'إرسال العينة للجهة البحثية وإصدار خطة الفحص';
+                radio2.textContent = 'طلب عينة إضافية / إعادة أخذ العينات';
+                labFields.style.display = 'block';
+            } else if (req.stage === 7) {
+                headingEl.textContent = 'اعتماد لجنة التسجيل وإصدار شهادة الترخيص الرسمية';
+                radio1.textContent = 'اعتماد نهائي وإصدار الرخصة الرقمية';
+                radio2.textContent = 'تأجيل لحين مراجعة التقرير الفني الإضافي';
+                labFields.style.display = 'none';
+            } else {
+                headingEl.textContent = 'معالجة الطلب بالمرحلة الحالية: ' + req.stageName;
+                radio1.textContent = 'اعتماد وإحالة للمرحلة التالية';
+                radio2.textContent = 'إرجاع للمرحلة السابقة';
+                labFields.style.display = 'none';
+            }
+
+            document.getElementById('decision-notes').value = '';
+            document.getElementById('process-drawer').classList.add('active');
+        }
+
+        function closeDrawer() {
+            document.getElementById('process-drawer').classList.remove('active');
+        }
+
+        function handleOverlayClick(e) {
+            if (e.target.id === 'process-drawer') {
+                closeDrawer();
+            }
+        }
+
+        function switchDrawerTab(tabId) {
+            document.querySelectorAll('.drawer-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function selectDecisionRadio(cardEl) {
+            document.querySelectorAll('.decision-radio-card').forEach(c => c.classList.remove('selected'));
+            cardEl.classList.add('selected');
+            const radio = cardEl.querySelector('input[type="radio"]');
+            if (radio) radio.checked = true;
+        }
+
+        function submitDecision() {
+            const notes = document.getElementById('decision-notes').value.trim();
+            if (!notes) {
+                alert('فضلاً قم بتسجيل ملاحظات وتوصيات القرار قبل المتابعة.');
+                return;
+            }
+
+            const actionVal = document.querySelector('input[name="decision_action"]:checked').value;
+
+            if (actionVal === 'approve') {
+                if (currentActiveOrder.stage < 7) {
+                    currentActiveOrder.stage += 1;
+                    currentActiveOrder.stageName = `المرحلة ${currentActiveOrder.stage}`;
+                    if (currentActiveOrder.stage === 3) currentActiveOrder.stageName = "3. مراجعة مشرف القسم";
+                    if (currentActiveOrder.stage === 4) currentActiveOrder.stageName = "4. قسم التجارب وإرسال العينة";
+                    if (currentActiveOrder.stage === 5) currentActiveOrder.stageName = "5. فحص الجهة البحثية والمختبر";
+                    if (currentActiveOrder.stage === 6) currentActiveOrder.stageName = "6. مراجعة تقرير التجارب";
+                    if (currentActiveOrder.stage === 7) currentActiveOrder.stageName = "7. العرض على لجنة التسجيل";
+                    alert(`تم اعتماد الإجراء بنجاح وتحويل الطلب ${currentActiveOrder.id} إلى: ${currentActiveOrder.stageName}`);
+                } else {
+                    currentActiveOrder.status = "معتمد ومصدر الشهادة";
+                    currentActiveOrder.statusClass = "approved";
+                    alert(`تهانينا! تم اعتماد الطلب ${currentActiveOrder.id} وإصدار شهادة التسجيل الرقمية بنجاح.`);
+                }
+            } else if (actionVal === 'return') {
+                alert(`تم إرجاع الطلب ${currentActiveOrder.id} مع إشعار مقدم الطلب بالملاحظات.`);
+            } else {
+                currentActiveOrder.status = "مرفوض";
+                currentActiveOrder.statusClass = "status-danger";
+                alert(`تم رفض الطلب ${currentActiveOrder.id} وتسجيل مبررات الرفض.`);
+            }
+
+            closeDrawer();
+            searchRequests();
+        }
+
+        function switchStaffRole(role) {
+            const badge = document.getElementById('user-role-badge');
+            if (role === 'initial') {
+                badge.textContent = 'مسؤول دراسة وتدقيق المعاملات';
+                filterByStage(1);
+            } else if (role === 'technical') {
+                badge.textContent = 'باحث فني - إدارة المبيدات والأسمدة';
+                filterByStage(2);
+            } else if (role === 'supervisor') {
+                badge.textContent = 'مشرف القسم الزراعي';
+                filterByStage(3);
+            } else if (role === 'lab') {
+                badge.textContent = 'الجهة البحثية - المركز الوطني للبحوث';
+                filterByStage(5);
+            } else if (role === 'committee') {
+                badge.textContent = 'عضو لجنة تسجيل المدخلات الزراعية';
+                filterByStage(7);
+            }
+        }
+
+        // Initialize table on load
+        renderTable(currentRequests);
+    </script>
+</body>
+</html>
